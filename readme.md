@@ -28,4 +28,4 @@ in package-lock.json file, insert in "scripts":
 
 install dotenv 
 
-    -   $npm i dotenv
+    -   $npm i dotenv || npm i dotenv bcryptjs jsonwebtoken
