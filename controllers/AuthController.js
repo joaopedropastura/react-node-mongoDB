@@ -4,7 +4,6 @@ const jwt = require('jsonwebtoken');
 
 require('dotenv').config();
 
-
 class AuthController {
     static async register(req, res) {
 
@@ -28,29 +27,23 @@ class AuthController {
         } catch(error) {
             return res.status(500).send({ message: "something faild" })
         }
-    
     }
+    
+
+
     static async login(req, res) {
         const { email, password } = req.body
 
         if(!email || !password)
-            return res.status(400)
-                .send({ message: "Email or password not provider" })
+            return res.status(400).send({ message: "Email or password not provider" })
         try{
-
-            const user = await User.find({ email })
+            const user = await User.findOne({ email })
             if (!user)
-                return res.status(400)
-                    .send({ message: "Invalid Email or password" })
+                return res.status(400).send({ message: "Invalid Email or password" })
+            if (!await bcrypt.compare(password, user.password))
+                return res.status(400).send({ message: "Invalid email or password" })
             
-
-            user.map(u =>
-                    {
-                        if(bcrypt.compare(u.password) == password) 
-                            return u        
-                    } 
-                )
-                const secret = process.env.SECRET
+            const secret = process.env.SECRET
             const token = jwt.sign(
                 {
                     id: user._id,
@@ -60,11 +53,28 @@ class AuthController {
                     expiresIn: '1 day'
                 }
             )
-            return res.status(200).send({ token: token})
+            return res.status(200).send({ token: token })
         } catch (error) {
             console.log(error)
             return res.status(500).send({ message: "something wrong" })
         }
+    }
+
+    static async delUser(req, res) {
+        const { email } = req.body
+        const { token } = req.headers
+        
+        if(!token)
+            res.status(400).send({ message: "not outhorized, login required" })
+
+        const [header, payload, signature] = token.split(".")
+        const userId = atob(payload).split('"')[3]
+        
+        if(!email)
+        res.status(400).send({ message: "Email not provider" })
+        const user = User.findOne(email)
+
+
     }
 }
 

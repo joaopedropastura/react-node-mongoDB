@@ -29,3 +29,20 @@ in package-lock.json file, insert in "scripts":
 install dotenv 
 
     -   $npm i dotenv || npm i dotenv bcryptjs jsonwebtoken
+
+
+<hr>
+install cors
+
+    -   $npm i cors
+
+
+<hr>
+
+install jest for unity tests
+
+    -   $npm i --dev jest
+<hr>
+in package-lock.json file, insert in "scripts":
+        
+        "test": "jest --testEnvironment=node --watchAll --verbose --coverage",
