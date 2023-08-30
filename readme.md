@@ -1,5 +1,17 @@
 https://www.tabnews.com.br/tiagoCali/back-end-com-typescript-para-iniciantes
 
+install mongo on mac :
+
+    https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-os-x/
+
+check is install sucessfully with
+
+    - $mongod
+    
+and then for run 
+
+    - $brew services run mongodb-community
+
 <hr>
 
 step by step:
